@@ -12,7 +12,8 @@ describe('CRUD operations for planets', function() {
     const existingPlanets = await Planet.find({ name: { $in: ['Planet 1', 'Planet 2'] } });
     const planetsToAdd = [
         {name: 'Planet 1', orderFromSun: 10, hasRings: true, mainAtmosphere: ["H2","CH4"], surfaceTemperatureC:{min: -200, max: -100, mean: -150}},
-        {name: 'Planet 2', orderFromSun: 11, hasRings: false, mainAtmosphere: ["H2","He"], surfaceTemperatureC:{min: -500, max: -300, mean: -400}}
+        {name: 'Planet 2', orderFromSun: 11, hasRings: false, mainAtmosphere: ["H2","He"], surfaceTemperatureC:{min: -500, max: -300, mean: -400}},
+        
      ];
      const newPlanets = planetsToAdd.filter(planet => !existingPlanets.some(existingPlanet => existingPlanet.name === planet.name));
      await Planet.insertMany(newPlanets);
@@ -21,13 +22,13 @@ describe('CRUD operations for planets', function() {
      //Create a new plant
      it('POST planet and return it', async function() {
       const newPlanet = {
-        name: 'Test Planet',
-        orderFromSun: 12, 
-        hasRings: true, 
-        mainAtmosphere: ["H2","He"],
-        surfaceTemperatureC:{min: -200, 
-                             max: -100, 
-                            mean: -150}
+        name: 'Earth',
+        orderFromSun: 3, 
+        hasRings: false, 
+        mainAtmosphere: ["N2","O2"],
+        surfaceTemperatureC:{min: -89, 
+                             max: -58, 
+                            mean: -15}
         };
 
         const res = await request(app)
@@ -39,8 +40,27 @@ describe('CRUD operations for planets', function() {
         expect(res.body).to.have.property('_id');
         expect(res.body.name).to.equal(newPlanet.name);
         expect(res.body.orderFromSun).to.equal(newPlanet.orderFromSun);
-        createdPlanetId = res.body._id; // Save the created planet's ID to future test's             
-        console.log('Soy un chingón id al parecer, no tan valido de planeta:::::', createdPlanetId)
+        createdPlanetId = res.body._id; // Save the created planet's ID to future test's   
+      });
+
+    // We try to create the same planet (Earth)  
+      it('Should not create a duplicate planet', async function() {
+        const duplicatePlanet = {
+          name: 'Earth',
+          orderFromSun: 3,
+          hasRings: false,
+          mainAtmosphere: ['N2', 'O2'],
+          surfaceTemperatureC: { min: -89,
+                                 max: 58, 
+                                 mean: 15 }
+        };
+    
+        const res = await request(app)
+          .post('/api/planets')
+          .send(duplicatePlanet)
+          .expect(409);
+    
+        expect(res.body.message).to.equal('Planet already exists');
       });
        
      //Read all the plants

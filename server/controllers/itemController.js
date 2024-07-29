@@ -5,6 +5,14 @@ import mongoose from 'mongoose';
 const createItem = async (req, res) => {
   
 try{
+   
+    // to avoid the creation of duplicated items
+    const { name, quantity } = req.body; 
+    const existingItem = await Item.findOne({ name, quantity });
+    if (existingItem) {return res.status(409).json({ message: 'Item already exists' });}
+
+    // if it doens't exist, then we add the item to the database
+
     const newItem = new Item(req.body);
     const item = await newItem.save();
     res.status(201).json(item);

@@ -4,6 +4,12 @@ import mongoose from 'mongoose';
 // Create a new planet
 const createPlanet = async (req, res) => {
     try {
+      // to avoid the creation of duplicated planets
+      const { name, orderFromSun, hasRings, mainAtmosphere, surfaceTemperatureC } = req.body; 
+      const existingPlanet = await Planet.findOne({ name, orderFromSun, hasRings, mainAtmosphere, surfaceTemperatureC });
+      if (existingPlanet) {return res.status(409).json({ message: 'Planet already exists' });}
+
+      // if it doens't exist, then we add the planet to the database
       const newPlanet = new Planet(req.body);
       const planet = await newPlanet.save();
       res.status(201).json(planet);
@@ -56,7 +62,6 @@ const createPlanet = async (req, res) => {
   // Delete a planet
   const deletePlanet = async (req, res) => {
     try {
-      console.log(`Attempting to delete planet with ID: ${req.params.id}`);
       const planet = await Planet.findByIdAndDelete(req.params.id);
       if (!planet) return res.status(404).json({ error: 'Planet not found' });
       res.status(200).json({ message: 'Planet deleted successfully' });

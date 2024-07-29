@@ -35,8 +35,22 @@ describe('CRUD operations for items', function() {
       expect(res.body.name).to.equal(newItem.name);
       expect(res.body.quantity).to.equal(newItem.quantity);
       createdItemId = res.body._id; // Save the created item's ID to future test's
-      console.log('Soy un chingón id valido de item:::::', createdItemId)
     });
+
+    // We try to create the same item (Test item)
+    it('Should not create a duplicate item', async function() {
+      const duplicatedItem = {
+        name: 'Test Item',
+        quantity: 111
+      };
+
+      const res = await request(app)
+        .post('/api/items')
+        .send(duplicatedItem)
+        .expect(409);
+      expect(res.body.message).to.be.equal('Item already exists');  
+    });
+
 
     // Read all the items
     it('GET items', async function() {
