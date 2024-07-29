@@ -1,12 +1,12 @@
 import express from 'express';
-import planetController from '../controllers/planetController.js';
+import PlanetController from '../controllers/planetController.js';
 
 const router = express.Router();
 
-router.post('/', planetController.createPlanet);
-router.get('/', planetController.getPlanets);
-router.get('/:id', planetController.getPlanetById);
-router.put('/:id', planetController.updatePlanet);
-router.delete('/:id', planetController.deletePlanet);
+router.post('/', PlanetController.createPlanet);
+router.get('/', PlanetController.getPlanets);
+router.get('/:id', PlanetController.getPlanetById);
+router.put('/:id', PlanetController.updatePlanet);
+router.delete('/:id', PlanetController.deletePlanet);
 
 export default router;

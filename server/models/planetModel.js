@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 
-const planetSchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
+const PlanetSchema = new mongoose.Schema({
   name: { type: String, required: true },
   orderFromSun: { type: Number, required: true },
   hasRings: { type: Boolean, required: true },
@@ -13,6 +12,5 @@ const planetSchema = new mongoose.Schema({
   }
 });
 
-const Planet = mongoose.model('Planet', planetSchema, 'planets'); // 'planets' its the name of the collection in MongoDB
-
+const Planet = mongoose.model('Planet', PlanetSchema, 'planets'); // 'planets' its the name of the collection in MongoDB
 export default Planet;

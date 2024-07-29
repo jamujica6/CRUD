@@ -4,7 +4,7 @@ import app from '../index.js';
 import Item from '../server/models/itemModel.js';
 
 describe('CRUD operations for items', function() {
-    let createdItemId;
+    let createdItemId; // to identify the created test item 
 
     // This function creates two items: 'Item 1' and 'Item 2' before each test. If either item is already in the database, it is not inserted.
    beforeEach(async () =>{  
@@ -26,33 +26,27 @@ describe('CRUD operations for items', function() {
       };
   
       const res = await request(app)
-        .post('/api/items')
-        .send(newItem)
-        .expect('Content-Type', /json/)
-        .expect(201);
-        // console.log('items.test.msj Creating item|Test _.,·-^¨·-.,_.,·-^¨·-.,_.,·-^¨·-.,_item --> with the _id: ',res.body._id);
-        // console.log('items.test.msj Creating item|Test _.,·-^¨·-.,_.,·-^¨·-.,_.,·-^¨·-.,_item --->with res.body.name: ',res.body.name);
-        // console.log('items.test.msj Creating item|Test _.,·-^¨·-.,_.,·-^¨·-.,_.,·-^¨·-.,_item --->newItem.name: ',newItem.name);
-
+                  .post('/api/items')
+                  .send(newItem)
+                  .expect('Content-Type', /json/)
+                  .expect(201);
+        
       expect(res.body).to.have.property('_id');
       expect(res.body.name).to.equal(newItem.name);
       expect(res.body.quantity).to.equal(newItem.quantity);
-       
       createdItemId = res.body._id; // Save the created item's ID to future test's
-      // console.log('items.test.msj creating itemTest _.,·-^¨·-.,_.,·-^¨·-.,_.,·-^¨·-.,_This is the id saved: ',createdItemId);
+      console.log('Soy un chingón id valido de item:::::', createdItemId)
     });
 
     // Read all the items
-
-    
-    it('GET items', async function(){
+    it('GET items', async function() {
       await request(app)
       .get('/api/items')
       .expect('Content-Type', /json/)
       .expect(200)
       .expect(res => {
         expect(res.body).to.be.an('array');
-      });
+                     });
     });
 
     // Read a specific item
@@ -87,7 +81,6 @@ describe('CRUD operations for items', function() {
       await request(app)
       .delete(`/api/items/${createdItemId}`)
       .expect(200);
-
 
     // Verify eliminated item
       await request(app)

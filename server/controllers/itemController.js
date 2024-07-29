@@ -9,35 +9,30 @@ try{
     const item = await newItem.save();
     res.status(201).json(item);
     }catch (err) {
-                  res.status(400).json({ error: err.message });
-                 }
+     res.status(400).json({ error: err.message });
+    }
 };
 
 // Read all the items
 const getItems = async (req, res) => {
   try {
     const items = await Item.find();
-    console.log('this is the array of iteeeeeeeeems!',items);
-    if(items.length===0) {
+      if(items.length===0) {
       // If there are no items, return a message indicating that the database is empty
-      return res.status(200).json({ message: 'No items found' });
-    }
+      return res.status(200).json({ message: 'No items found' });}
     
-   console.log('itemController.js getItems, _.,·-^¨·-.,_.,·-^¨·-.,_.,·-^¨·-.,_item --> ',items);
-
-    res.status(200).json(items);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-      
-};
+      res.status(200).json(items);
+      } catch (err) {
+      res.status(400).json({ error: err.message });
+      }
+    };
 
 // Read a specific item
 const getItemById = async (req, res) => {
   
   try{
     const itemId = req.params.id;
-    // To make sure that the ip provided its valid
+    // To make sure that the ip provided is valid
     if (!mongoose.Types.ObjectId.isValid(itemId)) {
       return res.status(400).send({ message: 'Invalid ID' });
   }

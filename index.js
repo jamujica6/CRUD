@@ -30,13 +30,6 @@ app.get('/', (req, res) => {
   res.send('¡Welcome to CRUD API!');
 });
 
-// Verifying an empty collection
-// app.get('/api/items', (req, res) => {
-//   const items = []; // Assuming the collection is empty 
-//   res.status(200).json(items);
-// });
-
-
 // App exportation
 export default app;
 
