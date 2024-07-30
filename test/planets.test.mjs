@@ -41,10 +41,10 @@ describe('CRUD operations for planets', function() {
         expect(res.body.name).to.equal(newPlanet.name);
         expect(res.body.orderFromSun).to.equal(newPlanet.orderFromSun);
         createdPlanetId = res.body._id; // Save the created planet's ID to future test's   
-      });
+     });
 
-    // We try to create the same planet (Earth)  
-      it('Should not create a duplicate planet', async function() {
+     // We try to create the same planet (Earth)  
+     it('Should not create a duplicate planet', async function() {
         const duplicatePlanet = {
           name: 'Earth',
           orderFromSun: 3,
@@ -61,10 +61,10 @@ describe('CRUD operations for planets', function() {
           .expect(409);
     
         expect(res.body.message).to.equal('Planet already exists');
-      });
+     });
        
      //Read all the plants
-    it('GET, should return an array of planets', async function() {
+     it('GET, should return an array of planets', async function() {
       await request(app)
       .get('/api/planets')
       .expect(200)
@@ -72,10 +72,10 @@ describe('CRUD operations for planets', function() {
       .expect(res => {
         expect(res.body).to.be.an('array');
                      });
-    });
+     });
 
     // Read a specific planet
-    it('GET planet by id', async function() {
+     it('GET planet by id', async function() {
 
       const res = await request(app)
       .get(`/api/planets/${createdPlanetId}`)
@@ -83,9 +83,9 @@ describe('CRUD operations for planets', function() {
       .expect(200);
       expect(res.body).to.have.property('_id', createdPlanetId);
       
-    });
+     });
 
-   // Update a existing planet by Id
+    // Update a existing planet by Id
     it('PUT (update) planet by id', async function() {
     const updatedPlanet = {
       name: 'Updated Planet',
