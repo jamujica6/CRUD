@@ -22,7 +22,7 @@ describe('CRUD operations for planets', function() {
      //Create a new plant
      it('POST planet and return it', async function() {
       const newPlanet = {
-        name: 'Earth',
+        name: 'Namekusein',
         orderFromSun: 3, 
         hasRings: false, 
         mainAtmosphere: ["N2","O2"],
@@ -46,20 +46,19 @@ describe('CRUD operations for planets', function() {
      // We try to create the same planet (Earth)  
      it('Should not create a duplicate planet', async function() {
         const duplicatePlanet = {
-          name: 'Earth',
+          name: 'Namekusein',
           orderFromSun: 3,
           hasRings: false,
           mainAtmosphere: ['N2', 'O2'],
           surfaceTemperatureC: { min: -89,
-                                 max: 58, 
-                                 mean: 15 }
+                                 max: -58, 
+                                 mean:-15 }
         };
     
         const res = await request(app)
           .post('/api/planets')
           .send(duplicatePlanet)
           .expect(409);
-    
         expect(res.body.message).to.equal('Planet already exists');
      });
        
