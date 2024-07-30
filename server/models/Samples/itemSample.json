@@ -1,0 +1,14 @@
+[
+    {
+        "_id": "66a6f93d477cd9a9c2ec0bbe",
+        "name": "Item 2",
+        "quantity": 33,
+        "__v": 0
+    },
+    {
+        "_id": "66a6facf7b00264b3ffc7292",
+        "name": "Item 1",
+        "quantity": 22,
+        "__v": 0
+    }
+]

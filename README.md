@@ -91,3 +91,14 @@ Las pruebas están ubicadas en la carpeta test y utilizan mocha y supertest para
 
 Contribuciones
 Las contribuciones son bienvenidas. Por favor, realiza un fork del proyecto y abre un pull request con tus cambios.
+
+# Licencia
+Este proyecto está bajo la MIT License.
+
+# Notas adicionales
+
+```yaml
+Se adjunta dentro de la carpeta `models` la carpeta `samples` con muestras de datos en formato json de "items" y "planets" de referenca.
+
+Para pruebas adicionales se puede modificar la carpeta `test`.
+``````
