@@ -98,7 +98,7 @@ Este proyecto está bajo la MIT License.
 # Notas adicionales
 
 ```yaml
-Se adjunta dentro de la carpeta `models` la carpeta `samples` con muestras de datos en formato json de "items" y "planets" de referenca.
+Se adjunta dentro de la carpeta `./server/models/samples` muestras de datos en formato json de "items" y "planets" de referenca.
 
 Para pruebas adicionales se puede modificar la carpeta `test`.
 ``````
